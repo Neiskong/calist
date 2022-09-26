@@ -8,14 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    enum Tabs: String {
+        case calendar = "캘린더"
+        case toDoList = "투두 리스트"
+    }
+    
+    @State var tabSelection: Tabs = .calendar
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            TabView(selection: $tabSelection) {
+                CalendarView()
+                    .tabItem {
+                        if tabSelection == Tabs.calendar {
+                            Image(systemName: "calendar")
+                        } else {
+                            Image(systemName: "calendar")
+                                .environment(\.symbolVariants, .none)
+                        }
+                        Text(Tabs.calendar.rawValue)
+                    }
+                    .tag(Tabs.calendar)
+                
+                ToDoListView()
+                    .tabItem {
+                        if tabSelection == Tabs.toDoList {
+                            Image(systemName: "checkmark.circle.fill")
+                        } else {
+                            Image(systemName: "checkmark.circle.fill")
+                                .environment(\.symbolVariants, .none)
+                        }
+                        Text(Tabs.toDoList.rawValue)
+                    }
+                    .tag(Tabs.toDoList)
+            }
+            .navigationBarTitle(self.tabSelection.rawValue, displayMode: .large)
         }
-        .padding()
+        .accentColor(Color.black)
     }
 }
 
