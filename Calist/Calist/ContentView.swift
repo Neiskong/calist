@@ -43,7 +43,6 @@ struct ContentView: View {
                     }
                     .tag(Tabs.toDoList)
             }
-            .navigationBarTitle(self.tabSelection.rawValue, displayMode: .large)
         }
         .accentColor(Color.black)
     }
